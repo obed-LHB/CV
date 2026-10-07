@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b5d3b">
+<title>CV RDC Maker — Générateur de CV</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark">CV</span><div><strong>CV RDC Maker</strong><small>Générateur de CV professionnel</small></div></div>
+  <div class="top-actions">
+    <button class="ghost" id="loadDemo">Exemple</button>
+    <button class="ghost" id="saveBtn">Sauvegarder</button>
+    <button class="ghost" id="clearBtn">Nouveau</button>
+    <button class="primary" id="printBtn">Télécharger / PDF</button>
+  </div>
+</header>
+
+<main class="app">
+  <aside class="editor">
+    <div class="mobile-tabs"><button class="tab active" data-tab="edit">Édition</button><button class="tab" data-tab="preview">Aperçu</button></div>
+
+    <section class="panel">
+      <div class="panel-title"><span>01</span><div><h2>Identité</h2><p>Les informations principales du candidat</p></div></div>
+      <div class="grid two">
+        <label>Nom<input id="nom" placeholder="Ex. LUHEMBWE"></label>
+        <label>Post-nom<input id="postnom" placeholder="Ex. KASEREKA"></label>
+        <label>Prénom<input id="prenom" placeholder="Ex. Obed"></label>
+        <label>Titre professionnel<input id="titre" placeholder="Ex. Développeur web"></label>
+        <label>Téléphone<input id="telephone" placeholder="+243 9XX XXX XXX"></label>
+        <label>E-mail<input id="email" type="email" placeholder="exemple@email.com"></label>
+        <label>Ville<input id="ville" placeholder="Goma, Kinshasa, Lubumbashi..."></label>
+        <label>Adresse<input id="adresse" placeholder="Quartier / avenue"></label>
+        <label>Date de naissance<input id="naissance" placeholder="JJ/MM/AAAA"></label>
+        <label>Lieu de naissance<input id="lieuNaissance" placeholder="Ville, RDC"></label>
+        <label>Nationalité<input id="nationalite" value="Congolaise"></label>
+        <label>LinkedIn / Portfolio<input id="linkedin" placeholder="linkedin.com/in/..."></label>
+      </div>
+      <label>Photo professionnelle<input id="photo" type="file" accept="image/*"></label>
+      <div class="photo-actions"><button class="small-btn" id="removePhoto">Supprimer la photo</button></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title"><span>02</span><div><h2>Profil</h2><p>Présentez votre parcours en quelques lignes</p></div></div>
+      <label>Profil professionnel<textarea id="profil" rows="5" placeholder="Ex. Jeune professionnel congolais motivé, rigoureux et passionné par..."></textarea></label>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title"><span>03</span><div><h2>Formations</h2><p>Diplômes, études et établissements</p></div></div>
+      <div id="formations"></div><button class="add-btn" data-add="formation">+ Ajouter une formation</button>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title"><span>04</span><div><h2>Expériences</h2><p>Emplois, stages et responsabilités</p></div></div>
+      <div id="experiences"></div><button class="add-btn" data-add="experience">+ Ajouter une expérience</button>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title"><span>05</span><div><h2>Compétences</h2><p>Vos savoir-faire</p></div></div>
+      <div id="competences"></div><button class="add-btn" data-add="competence">+ Ajouter une compétence</button>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title"><span>06</span><div><h2>Langues</h2><p>Niveau de maîtrise</p></div></div>
+      <div id="langues"></div><button class="add-btn" data-add="langue">+ Ajouter une langue</button>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title"><span>07</span><div><h2>Projets & certifications</h2><p>Valorisez vos réalisations</p></div></div>
+      <div id="projets"></div><button class="add-btn" data-add="projet">+ Ajouter un projet</button>
+      <div id="certifications"></div><button class="add-btn" data-add="certification">+ Ajouter une certification</button>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title"><span>08</span><div><h2>Qualités & intérêts</h2><p>Votre personnalité et vos centres d'intérêt</p></div></div>
+      <label>Qualités personnelles<input id="qualites" placeholder="Ex. Ponctuel, organisé, dynamique, esprit d'équipe"></label>
+      <label>Centres d'intérêt<input id="interets" placeholder="Ex. Musique, informatique, bénévolat, sport"></label>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title"><span>09</span><div><h2>Références</h2><p>Personnes de référence, facultatif</p></div></div>
+      <label class="switch-line"><span>Afficher les références</span><input id="showReferences" type="checkbox"></label>
+      <div id="references"></div><button class="add-btn" data-add="reference">+ Ajouter une référence</button>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title"><span>10</span><div><h2>Style du CV</h2><p>12 modèles inspirés des usages professionnels en RDC</p></div></div>
+      <div class="templates" id="templates"></div>
+      <div class="color-row">
+        <label>Couleur principale<input id="color" type="color" value="#0b5d3b"></label>
+        <label>Police<select id="font"><option value="Inter">Moderne</option><option value="Georgia">Classique</option><option value="Arial">Simple</option><option value="Trebuchet MS">Élégante</option></select></label>
+      </div>
+    </section>
+  </aside>
+
+  <section class="preview-area">
+    <div class="preview-head"><strong>Aperçu A4</strong><span id="pageCount">1 page</span></div>
+    <div id="resume" class="resume template-1"></div>
+  </section>
+</main>
+
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>
